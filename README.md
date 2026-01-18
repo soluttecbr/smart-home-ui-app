@@ -1,16 +1,190 @@
-# React + Vite
+# 🏠 Smart Home UI – React + ESP32
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Interface web para **acionamento e monitoramento de dispositivos IoT**, desenvolvida em **React.js (Vite)** e integrada a um **ESP32** via **HTTP REST**, com foco em **automação residencial**.
 
-Currently, two official plugins are available:
+Este projeto permite controlar relés (luzes, ventiladores, tomadas, etc.) por meio de uma interface moderna, responsiva e escalável, pensada para uso em rede local (LAN).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## ✨ Funcionalidades
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* ✅ Interface web moderna (Mobile First)
+* ✅ Acionamento de relés via ESP32
+* ✅ Status visual de dispositivos (Ligado / Desligado)
+* ✅ Arquitetura componentizada em React
+* ✅ Comunicação HTTP REST
+* ✅ Preparado para expansão (WebSocket, MQTT, PWA)
+* ✅ Deploy no GitHub Pages (UI)
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🧠 Arquitetura do Projeto
+
+```
+┌─────────────┐        HTTP        ┌──────────────┐
+│  React App  │ ───────────────▶ │     ESP32     │
+│ (Frontend)  │ ◀─────────────── │ (Relés / IoT) │
+└─────────────┘                   └──────────────┘
+```
+
+> ⚠️ **Observação:**
+> O GitHub Pages hospeda apenas a interface.
+> A comunicação com o ESP32 funciona em **rede local (LAN)**.
+
+---
+
+## 🧩 Estrutura de Pastas
+
+```txt
+src/
+├── components/
+│   ├── Header.jsx        # Cabeçalho com nome do local e botão adicionar
+│   ├── DeviceCard.jsx    # Card do dispositivo (liga/desliga)
+│   └── Footer.jsx        # Menu de navegação
+├── data/
+│   └── devices.js        # Lista de dispositivos
+├── pages/
+│   └── Home.jsx          # Página principal
+├── services/
+│   └── esp32.js          # Comunicação com ESP32
+├── App.jsx
+├── main.jsx
+└── index.css
+```
+
+---
+
+## 🔌 Comunicação com o ESP32
+
+### Endpoint de acionamento
+
+```http
+GET /relay?id=2&state=1
+```
+
+### Parâmetros
+
+| Parâmetro | Tipo   | Descrição                    |
+| --------- | ------ | ---------------------------- |
+| `id`      | number | ID do relé                   |
+| `state`   | number | `1` = Ligar / `0` = Desligar |
+
+### Resposta (JSON)
+
+```json
+{
+  "id": 2,
+  "state": true
+}
+```
+
+---
+
+## 🧪 Exemplo de Uso
+
+Ligar o relé 2:
+
+```
+http://IPLOCALESP32/relay?id=2&state=1
+```
+
+Desligar o relé 2:
+
+```
+http://IPLOCALESP32/relay?id=2&state=0
+```
+
+---
+
+## 🖥️ Frontend (React)
+
+### Tecnologias utilizadas
+
+* ⚛️ React.js
+* ⚡ Vite
+* 🎨 CSS puro (layout customizado)
+* 🌐 Fetch API
+
+### Executar localmente
+
+```bash
+npm install
+npm run dev
+```
+
+Acesse:
+
+```
+http://localhost:5173
+```
+
+---
+
+## 🌍 Deploy (GitHub Pages)
+
+O projeto está configurado para deploy automático usando `gh-pages`.
+
+```bash
+npm run build
+npm run deploy
+```
+
+URL do projeto:
+
+```
+https://soluttecbr.github.io/smart-home-ui-app/
+```
+
+> ⚠️ A comunicação com o ESP32 **não funciona diretamente no GitHub Pages** devido a:
+>
+> * HTTPS obrigatório
+> * IP local (192.168.x.x)
+> * Restrições de CORS / Mixed Content
+
+---
+
+## ⚠️ Limitações Atuais
+
+* 🔒 Comunicação apenas em rede local
+* 🔄 Estado inicial ainda não sincronizado automaticamente
+* 📡 Sem WebSocket (atualização em tempo real)
+
+---
+
+## 🚀 Próximas Implementações (Roadmap)
+
+* [ ] Endpoint `/status` no ESP32
+* [ ] Sincronizar estado ao abrir o app
+* [ ] Comunicação via WebSocket
+* [ ] Detecção de dispositivo offline
+* [ ] Dashboard por cômodos
+* [ ] Transformar em PWA (App instalável)
+* [ ] Integração MQTT
+
+---
+
+## 🔐 Segurança
+
+Este projeto foi desenvolvido para **ambientes locais**.
+Para uso em produção, recomenda-se:
+
+* HTTPS no ESP32
+* Autenticação
+* Backend intermediário
+* Firewall / VLAN IoT
+
+---
+
+## 👨‍💻 Autor
+
+**SoluttecBR**
+🔧 Automação Residencial • IoT • Smart Home
+📺 Conteúdos técnicos e projetos práticos
+
+---
+
+## 📄 Licença
+
+Este projeto está sob a licença **MIT**.
+Sinta-se livre para usar, estudar e modificar.
+
