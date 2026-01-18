@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { setRelay } from "../services/esp32";
+import { IoIosPower } from "react-icons/io";
+import { FiAlertCircle } from "react-icons/fi";
 
 export default function DeviceCard({ device }) {
   const [isOn, setIsOn] = useState(device.status);
@@ -29,19 +31,22 @@ export default function DeviceCard({ device }) {
         <h3>{device.name}</h3>
         <span>{device.room}</span>
 
-        <p className={`status ${isOn ? "on" : "off"}`}>
-          {isOn ? "Ligado" : "Desligado"}
+        <p className={`status ${isOn && device.type !== "sensor" ? "on" : "off"}`}>
+          {device.type === "sensor" ? device.status : isOn ? "Ligado" : "Desligado"} 
         </p>
       </div>
-
-      <button
-        className={`power-btn ${isOn ? "on" : "off"}`}
-        onClick={toggleDevice}
-        disabled={loading}
-        aria-label="Ligar ou desligar dispositivo"
-      >
-        {loading ? "…" : "⏻"}
-      </button>
+      {device.type !== "sensor" ?(
+        <button
+          className={`power-btn ${isOn ? "on" : "off"}`}
+          onClick={toggleDevice}
+          disabled={loading}
+          aria-label="Ligar ou desligar dispositivo"
+        >
+          {loading ? "…" : <IoIosPower size={22}/>}
+        </button>
+      ) : <button  className={'status-offline ' + (device.status === 'online' ? 'on' : 'off')}>
+             <FiAlertCircle size={22} />
+          </button>}
     </div>
   );
 }

@@ -17,7 +17,13 @@ export const devices = [
     id: 3,
     name: "Sensor de temperatura",
     room: "Quarto principal",
-    status: false,
+    status: "offline",
+    type: "sensor",
+  },{
+    id: 4,
+    name: "Sensor porta",
+    room: "Cozinha",
+    status: "offline",
     type: "sensor",
   },
 ];

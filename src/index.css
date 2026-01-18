@@ -23,17 +23,40 @@ body {
   padding: 16px;
 }
 
+.header h1 {
+  font-size: 20px;
+  color: #1183ae;
+}
+
 .header-left {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
+.home-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: #166b86;;
+  border-radius: 8px;
+  color: #fff;
+}
+
 .add-btn {
-  background: #fff;
+  background: #eef4fb; /*#fff;*/
   border-radius: 50%;
   border: none;
   padding: 8px;
+}
+
+.add-btn:hover {
+  cursor: pointer;
+  background-color: #21ccea;
+  color: #fff;
+  transition: 0.2s ease;
 }
 
 /* CONTENT */
@@ -108,6 +131,17 @@ body {
 
 .footer .active {
   color: #f97316;
+}
+
+.status-offline {
+  font-size: 12px;
+  color: #d74c07;
+  
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  font-size: 20px;
 }
 
 /* STATUS */
