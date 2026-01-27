@@ -1,4 +1,4 @@
-const ESP32_BASE_URL = "http://192.168.0.107";
+const ESP32_BASE_URL = "http://192.168.0.111";
 
 export async function setRelay({ id, state }) {
   const url = `${ESP32_BASE_URL}/relay?id=${id}&state=${state}`;
